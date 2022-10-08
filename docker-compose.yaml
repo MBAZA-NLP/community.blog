@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  ghost:
+    image: mbazablog
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8090:2368
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: $DB_USER
+      database__connection__password: $DB_PASSWORD
+      database__connection__database: $DB_NAME
+      mail__options__service: Sendgrid
+      mail__options__auth__user: apikey
+      mail__options__auth__pass: $SENDGRID_KEY
+      NODE_ENV: production
+      CLOUDINARY_URL: $CLOUDINARY_URL
+      url: $BLOG_URL
+    volumes:
+      - ./ghost_config/config.production.json:/var/lib/ghost/config.production.json
+    networks:
+      - blog
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0.30
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+    volumes:
+      - $PWD/db_data:/var/lib/mysql
+    networks:
+      - blog
+
+networks:
+  blog:

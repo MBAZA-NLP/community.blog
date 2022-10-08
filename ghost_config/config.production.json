@@ -1,0 +1,41 @@
+{
+    "server": {
+      "port": 2368,
+      "host": "0.0.0.0"
+    },
+    "mail": {
+      "from": "'MBAZA Community' <mbazanlp.community@gmail.com>",
+      "transport": "SMTP"
+    },
+    "logging": {
+      "transports": ["file", "stdout"]
+    },
+    "process": "systemd",
+    "paths": {
+      "contentPath": "/var/lib/ghost/content"
+    },
+    "imageOptimization": {
+      "resize": true
+    },
+    "storage": {
+      "active": "ghost-cloudinary-store",
+      "ghost-cloudinary-store": {
+        "configuration": {
+          "image": {
+            "quality": "auto:good",
+            "secure": "true"
+          },
+          "file": {
+            "use_filename": "true",
+            "unique_filename": "true",
+            "phash": "true",
+            "overwrite": "false",
+            "invalidate": "true",
+            "folder": "mbaza-blog",
+            "tags": ["blog"]
+          }
+        }
+      }
+    }
+  }
+  
