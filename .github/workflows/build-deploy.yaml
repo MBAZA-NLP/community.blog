@@ -54,6 +54,7 @@ jobs:
           echo $ENV_FILE | base64 --decode > .env
           mkdir -p ~/community.blog
           cp docker-compose.yaml ~/community.blog
+          cp -r ghost_config ~/community.blog
           cp .env ~/community.blog
           cd ~/community.blog
           docker network ls|grep blog_net > /dev/null || docker network create --driver bridge blog_net
