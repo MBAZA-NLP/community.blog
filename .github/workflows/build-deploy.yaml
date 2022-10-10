@@ -30,7 +30,7 @@ jobs:
           images: ${{ env.IMAGE_NAME }}
           #Use branch, short sha and latest as tags
           tags: |
-            type=ref
+            type=ref,event=push
             type=sha
             type=raw,latest
 
