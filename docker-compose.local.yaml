@@ -1,8 +1,11 @@
 version: "3.7"
 
 services:
-  blog:
-    image: mbaza/community.blog
+  ghost:
+    image: mbazablog
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - $SERVER_PORT:2368
@@ -22,7 +25,6 @@ services:
       - ./ghost_config/config.production.json:/var/lib/ghost/config.production.json
     networks:
       - blog
-      - infrastructure_default
     depends_on:
       - db
 
@@ -41,5 +43,3 @@ services:
 
 networks:
   blog:
-  infrastructure_default:
-    external: true
