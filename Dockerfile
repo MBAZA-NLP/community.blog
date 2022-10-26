@@ -1,8 +1,8 @@
-FROM ghost:5.17.2-alpine as cloudinary
+FROM ghost:5.20.0-alpine as cloudinary
 WORKDIR $GHOST_INSTALL/current
 RUN su-exec node yarn add ghost-storage-cloudinary@2
 
-FROM ghost:5.17.2-alpine
+FROM ghost:5.20.0-alpine
 COPY --chown=node:node --from=cloudinary $GHOST_INSTALL/current/node_modules $GHOST_INSTALL/current/node_modules
 COPY --chown=node:node --from=cloudinary $GHOST_INSTALL/current/node_modules/ghost-storage-cloudinary $GHOST_INSTALL/current/core/server/adapters/storage/ghost-cloudinary-store
 COPY --chown=node:node --from=cloudinary $GHOST_INSTALL/current/node_modules/ghost-storage-cloudinary $GHOST_INSTALL/content/adapters/ghost-cloudinary-store
